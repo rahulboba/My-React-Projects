@@ -17,7 +17,7 @@ function App() {
           {showText ? <h1>Thank you</h1> : <h1>Hello World</h1>}
           <button aria-label='Tap Here'href="#link" onClick={handleClick} tabIndex={0} >Tap Here</button>
         </div>
-          <a className="App-link" aria-label="Tekvision Link" href="https://tekvision.in/">Link</a>
+          <a className="App-link" aria-label="Tekvision Link" href="https://tekvision.in/">Link 1</a>
       </header>
     </div>
   );
