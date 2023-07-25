@@ -4,6 +4,9 @@ import "./Resetbutton.css"
 
 export const Resetbutton = ({resetBoard}) => {
   return (
-    <button className="reset-btn" onClick={resetBoard}>Reset</button>
+    <div class= "restbutton">
+    <button className="reset-btn" onClick={resetBoard}>
+        Reset</button>
+        </div>
   )
 }

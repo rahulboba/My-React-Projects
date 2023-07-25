@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+// App.js
+import React, {useEffect, useState} from "react";
 
 import './App.css';
 
@@ -74,11 +75,29 @@ function App() {
     setBoard(Array(9).fill(null))
   }
 
+  const [resultMessage, setResultMessage] = useState("");
+
+  useEffect(() =>{
+    if (gameover){
+      const winner = checkWinner(board);
+      setResultMessage(
+        winner ? `Game Over. "${winner}" is WINNER!` : "Game Over. It's a draw!"
+      );
+    }else {
+      setResultMessage("");
+    }
+  }, [board, gameover]);
+
+
   return (
     <div className="App">
       <Scoreboard scores={scores} xPlaying={xPlaying}/>
       <Board board={board} onClick={gameover ? resetBoard : handleBoxClick}/>
        <Resetbutton resetBoard={resetBoard} />
+      <div className="visually-hidden" aria-live="polite">
+      {resultMessage}
+      </div>
+    
     </div>
   );
 }
