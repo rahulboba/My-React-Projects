@@ -2,11 +2,8 @@
 import React, {useEffect, useState} from "react";
 
 import './App.css';
-
 import { Board } from "./Component/Board"
-
 import { Scoreboard } from "./Component/Scoreboard"
-
 import { Resetbutton } from "./Component/Resetbutton";
 
 function App() {
@@ -38,13 +35,9 @@ function App() {
 
     setBoard(updatedBoard);
 
-
     const winner= checkWinner(updatedBoard);
-
     if(winner){
-   
       if (winner === "O"){
-       
           let {oScore}= scores;
           oScore+=1;
           setScores({...scores,oScore})
@@ -54,42 +47,41 @@ function App() {
         setScores({...scores,xScore})
       }
     }
-
     setXPlaying(!xPlaying);
   }
 
   const checkWinner = (board) =>{
     for (let i=0; i< WIN_CONDITION.length; i++) {
       const [x,y,z] = WIN_CONDITION[i];
-
       if (board[x]&& board[x] === board[y]&& board[y]=== board[z]){
         setGameOver(true)
         return board[x]; 
       }
-
     }
   }
 
-  const resetBoard = () =>{
-    setGameOver(false);
-    setBoard(Array(9).fill(null))
-  }
-
+  
   const [resultMessage, setResultMessage] = useState("");
-
   useEffect(() =>{
-    if (gameover){
-      const winner = checkWinner(board);
-      setResultMessage(
-        winner ? `Game Over. "${winner}" is WINNER!` : "Game Over. It's a draw!"
-      );
-    }else {
-      setResultMessage("");
+    const checkValue = board.every((value) => value !== null);
+      if (gameover){
+        const winner = checkWinner(board);
+        setResultMessage(
+          winner ? `Game Over. "${winner}" is WINNER!` : "Game Over. It's a draw!"
+          );
+        }if(!gameover && checkValue) {
+          setResultMessage("Game Over. It's a draw!");
+        }
+      }, 
+      [board, gameover]);
+    
+    const resetBoard = () =>{
+      setResultMessage("")
+      setGameOver(false);
+      setBoard(Array(9).fill(null))
     }
-  }, [board, gameover]);
-
-
-  return (
+    
+    return (
     <div className="App">
       <Scoreboard scores={scores} xPlaying={xPlaying}/>
       <Board board={board} onClick={gameover ? resetBoard : handleBoxClick}/>
