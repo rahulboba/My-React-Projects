@@ -4,3 +4,6 @@
     place-items: center;
     justify-content: center;
 }
+.board .focused {
+    background-color: yellow;
+}

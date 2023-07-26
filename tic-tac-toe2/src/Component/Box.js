@@ -1,18 +1,29 @@
-// Box.js
-import React from 'react'
+import React, { useEffect, useRef } from 'react';
+import './Box.css';
 
-import "./Box.css"
+export const Box = ({ value, onClick, index, focused, ...rest }) => {
+  const boxRef = useRef(null);
 
-export const Box = ({ value,onClick,index, ...rest }) => {
-    const style= value === "X" ? "box x" : "box o";
-    const cellLabel=`${Math.floor(index/3)+ 1} row ${(index% 3 + 1)} col`;
-    // const label= value ? value : `Box ${index + 1}`;
-    // console.log(rest)
-    return (
-    <button className={style} onClick={onClick} {...rest} 
-    roll="gridcell" aria-label={cellLabel+value}>
+  // Set focus on the box when the focused prop changes
+  useEffect(() => {
+    if (focused && boxRef.current) {
+      boxRef.current.focus();
+    }
+  }, [focused]);
+
+  const style = value === 'X' ? 'box x' : 'box o';
+  const cellLabel = `${Math.floor(index / 3) + 1} row ${index % 3 + 1} col`;
+
+  return (
+    <button
+      ref={boxRef} // Reference to the box element
+      className={style}
+      onClick={onClick}
+      role='gridcell'
+      aria-label={cellLabel + value}
+      {...rest}
+    >
       {value}
-      </button>
+    </button>
   );
 };
-
